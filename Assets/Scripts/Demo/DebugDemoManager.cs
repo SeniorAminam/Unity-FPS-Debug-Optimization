@@ -11,6 +11,7 @@
  * Developed by Amin Davodian
  */
 
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Text;
@@ -27,6 +28,9 @@ public class DebugDemoManager : MonoBehaviour
     [Header("🎮 Demo Settings")]
     [Tooltip("فعال/غیرفعال کردن کل سیستم دمو")]
     public bool enableDemoMode = true;
+    
+    [Tooltip("نمایش/مخفی کردن پنل دیباگ (F12)")]
+    public bool showDebugPanel = true;
     
     [Header("📊 Debug Toggles")]
     [Tooltip("نمایش خطوط Raycast تیراندازی")]
@@ -124,7 +128,14 @@ public class DebugDemoManager : MonoBehaviour
     {
         if (!enableDemoMode) return;
 
-        DrawDemoUI();
+        if (showDebugPanel)
+        {
+            DrawDemoUI();
+        }
+        else
+        {
+            DrawMinimalHint();
+        }
     }
 
     #region Input Handling
@@ -178,6 +189,13 @@ public class DebugDemoManager : MonoBehaviour
         {
             cacheScreenDimensions = !cacheScreenDimensions;
             LogToggle("Cache Screen Dimensions", cacheScreenDimensions);
+        }
+        
+        // F12: Toggle Debug Panel visibility
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+            showDebugPanel = !showDebugPanel;
+            LogToggle("Debug Panel", showDebugPanel);
         }
     }
 
@@ -252,6 +270,22 @@ public class DebugDemoManager : MonoBehaviour
         float height = 250;
         if (showPerformanceStats) height += 80;
         return height;
+    }
+
+    void DrawMinimalHint()
+    {
+        // نمایش hint کوچک در گوشه صفحه وقتی پنل مخفی است
+        GUIStyle hintStyle = new GUIStyle(GUI.skin.label)
+        {
+            fontSize = 12,
+            alignment = TextAnchor.MiddleCenter
+        };
+        
+        GUI.color = new Color(0, 0, 0, 0.5f);
+        GUI.Box(new Rect(10, 10, 150, 25), "");
+        GUI.color = new Color(1, 1, 1, 0.7f);
+        GUI.Label(new Rect(15, 10, 140, 25), "F12: Show Debug Panel", hintStyle);
+        GUI.color = Color.white;
     }
 
     #endregion
@@ -416,7 +450,7 @@ public class DebugDemoManager : MonoBehaviour
         if (!showSpawnPointGizmos) return;
 
         // نمایش Spawn Points
-        var networkManager = FindObjectOfType<NetworkManager>();
+        var networkManager = FindFirstObjectByType<NetworkManager>();
         if (networkManager != null)
         {
             // این بخش در Editor قابل مشاهده است

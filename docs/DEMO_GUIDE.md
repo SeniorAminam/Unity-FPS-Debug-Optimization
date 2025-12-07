@@ -44,6 +44,7 @@
 | **F6** | GC Spikes | ایجاد GC برای Profiler |
 | **F7** | SqrMagnitude | Toggle Distance Optimization |
 | **F8** | Cache Screen | Toggle Screen Center Cache |
+| **F12** | Hide/Show Panel | مخفی/نمایش پنل دیباگ |
 
 ---
 
@@ -148,9 +149,10 @@
 □ DemoManager در Scene اضافه شده؟
 □ همه کامپوننت‌ها attach شده‌اند؟
 □ Profiler قابل دسترسی است؟
-□ Console پاک است؟
+□ Console پاک است؟ (GC warnings دیگه نیست ✅)
 □ Network connection برقرار است؟
 □ کلیدها تست شده‌اند؟
+□ F12 برای مخفی کردن پنل کار می‌کند؟
 ```
 
 ---

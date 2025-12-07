@@ -131,7 +131,8 @@ public class PerformanceMonitor : MonoBehaviour
             lastGCTime = Time.time;
             lastGCCount = currentGCCount;
             
-            Debug.LogWarning($"[Performance] ⚠️ GC Happened! Total: {gcCollectionCount}");
+            // GC event tracked internally - no console spam
+            // The UI will show the warning icon when GC happens
         }
         else if (Time.time - lastGCTime > 2f)
         {
